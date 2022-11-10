@@ -6,6 +6,7 @@ abstract class Transaction {
      */
      protected String date;
      protected String description;
+     protected double amount;
 
     /**
      * Getter Methoden
@@ -14,6 +15,7 @@ abstract class Transaction {
 
     public String getDate(){return date;}
     public String getDescription(){return description;}
+    public double getAmount(){return amount;}
 
     /**
      * Setter Methoden.
@@ -21,6 +23,7 @@ abstract class Transaction {
      */
     public void setDate(String x){date = x;}
     public void setDescription(String x){description = x;}
+    public void setAmount(double x){amount = x;}
 
     /**
      * Es handelt sich hierbei um den Konstruktor der Abstrakten Klasse Transaction
@@ -28,9 +31,10 @@ abstract class Transaction {
      * @param date // wird in das Attribut date überführt des Objektes.
      * @param description // wird in das Attribut description überführt des Objektes.
      */
-     Transaction(String date, String description){
+     Transaction(String date, String description, double amount){
          this.setDate(date);
          this.setDescription(description);
+         this.setAmount(amount);
      }
 
     /**

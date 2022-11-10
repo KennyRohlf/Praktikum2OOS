@@ -3,50 +3,70 @@ package bank;
 public class Transfer extends Transaction implements CalculateBill{
 
     /**
-     * Attribute der Objekte aus der Klasse Transfer.
+     * Attribute
      */
-    private double amount;
     private String sender;
     private String recipient;
 
-    /**
-     * Getter Methoden um auf die Attribute zugreifen zu können.
-     */
 
-    public double getAmount(){return amount;}
+    /**
+     * @return : returns the Attribute sender.
+     */
     public String getSender(){return sender;}
+
+    /**
+     * @return retuns the Attribute recipient.
+     */
     public String getRecipient(){return recipient;}
 
     /**
-     * Setter Methode um über den Parameter x einen neuen Wert in die Attribute zu speichern.
-     * Für Amount muss der Wert mindestens >= 0 sein.
+     * Set the attribute amount. It has to be 1 or higher.
+     * @param x : double parameter to set amount.
      */
-
-    public void setAmount(Double x){
-        if(x >= 0){
+    public void setAmount(double x){
+        if (amount <= 0){
+            System.out.println("Der Wert muss größer 0 sein! Wert wird auf 1 gesetzt.");
+            this.amount = 1;
+        }
+        else {
             this.amount = x;
         }
-        else{
-            System.out.println("Es würden nur positive Werte verwendet werden! Rufen sie die Methode erneut auf");
-        }
     }
+
+    /**
+     * @param x : String parameter to set sender.
+     */
     public void setSender(String x){sender = x;}
+
+    /**
+     * @param x : String parameter to set rexipient.
+     */
     public void setRecipient(String x){recipient = x;}
 
     /**
-     * Konstruktoren zur Erstellung der Objekte der Klasse.
-     * Der Wert Amount darf dabei keinen Wert < 0 enthalten.
+     * Transfer constructor
+     * @param date1 : set the date
+     * @param amount1 : set the amount
+     * @param description1 : set the description.
+     * Other 2 parameter are set "Anonym"
      */
     public Transfer(String date1, double amount1, String description1){
-        super(date1,description1);
-        this.setAmount(amount1);
+        super(date1,description1, amount1);
         this.setSender("Anonym");
         this.setSender("Anonym");
     }
 
+    /**
+     * Transfer constructor
+     * @param date1 : Set date
+     * @param amount1 : Set amount
+     * @param description1 : set description
+     * @param sender1 : set Sender
+     * @param recipient1 : set recipient
+     */
     public Transfer(String date1, double amount1, String description1, String sender1, String recipient1){
-        super(date1,description1);
-        this.setAmount(amount1);
+
+        super(date1,description1,amount1);
         this.setSender(sender1);
         this.setRecipient(recipient1);
     }

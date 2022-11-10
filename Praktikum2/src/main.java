@@ -9,7 +9,7 @@ public class main {
     Payment payment3 = new Payment(payment2);
 
     Transfer transfer1 = new Transfer("4.8.2000",999, "Betrag sollte = 999€ sein", "Ich","Du");
-    Transfer transfer2 = new Transfer("4.8.2000",999, "Betrag sollte = 999€ sein", "Ich","ich");
+    Transfer transfer2 = new Transfer("4.8.2000",-100, "Betrag sollte = 999€ sein", "Ich","ich");
     Transfer transferCopy = new Transfer(transfer1);
 
     System.out.println("Payment1: " + payment1.calculate());

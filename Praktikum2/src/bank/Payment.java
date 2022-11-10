@@ -5,22 +5,24 @@ public class Payment extends Transaction implements CalculateBill{
     /**
      * Die Attribute der Objekte.
      */
-    private double amount;
+
     private double incomingInterest;
     private double outGoingInterest;
 
     /**
-     * Getter Methoden um auf Attribute zugreifen zu können.
+     * @return : get the Attribute incomingInterest.
      */
-
-    public double getAmount(){return amount;}
     public double getIncomingInterest(){return incomingInterest;}
+
+    /**
+     * @return : get the Attribute outGoingIntrest.
+     */
     public double getOutGoingInterest(){return outGoingInterest;}
 
     /**
-     * Setter Methoden um über den Parameter x den Attributen einen neuen Wert zu geben.
+     * Set the Attribute IncomingInterest.
+     * @param x : double Parameter has to be between 0 and 1.
      */
-    public void setAmount(double x){ amount = x;}
     public void setIncomingInterest(double x){
     if(x >= 0 && x <= 1){
             incomingInterest = x;
@@ -30,6 +32,10 @@ public class Payment extends Transaction implements CalculateBill{
             this.setIncomingInterest(0);
         }
     }
+    /**
+     * Set the Attribute OutGoingInterst.
+     * @param x : double Parameter has to be between 0 and 1.
+     */
     public void setOutGoingInterest(double x){
         if(x >= 0 && x <= 1){
             outGoingInterest = x;
@@ -41,18 +47,28 @@ public class Payment extends Transaction implements CalculateBill{
     }
 
     /**
-     * Konstruktoren die ein Objekt der Klasse erstellt mit incominginterest/Outgoinginterest Kontrolle für die Werteingabe.
+     * Payment Constructor
+     * @param date1 : Set date
+     * @param amount1 : Set amount
+     * @param description1 : Set description
+     * Other parameter are set 0.
      */
     public Payment(String date1, double amount1, String description1){
-        super(date1,description1);
-        this.setAmount(amount1);
+        super(date1,description1,amount1);
         this.setIncomingInterest(0);
         this.setOutGoingInterest(0);
     }
 
+    /**
+     * Payment Constructor
+     * @param date1 : set date
+     * @param amount1 : set amount
+     * @param description1 : set description
+     * @param incomingInterest1 : set incomingInterest
+     * @param outGoingInterest1 : set outGoingInterst
+     */
     public Payment(String date1, double amount1, String description1, double incomingInterest1, double outGoingInterest1){
-        super(date1,description1);
-        this.setAmount(amount1);
+        super(date1,description1, amount1);
         this.setIncomingInterest(incomingInterest1);
         this.setOutGoingInterest(outGoingInterest1);
     }
