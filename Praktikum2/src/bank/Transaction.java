@@ -48,14 +48,17 @@ abstract class Transaction {
 
     /**
      * Vergleicht, ob 2 Objekte der Klasse Transaction gleich sind.
-     * @param equal : Gebe ein Objekt der Klasse Transaction an.
+     * @param other : Gebe ein Objekt der Klasse Transaction an.
      * @return : Es wird ein boolean ausgegeben.
      */
 
-    public boolean equals(Transaction equal){
-        if(equal == null){
+    @Override
+    public boolean equals(Object other){
+        if (other instanceof Transaction equals){
+            return (this.date == equals.date && this.amount == equals.amount && this.description == equals.description);
+        }
+        else{
             return false;
         }
-        return (this.getDate() == equal.getDate() && this.getDescription() == equal.getDescription());
     }
 }

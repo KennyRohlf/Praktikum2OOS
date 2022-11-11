@@ -24,8 +24,8 @@ public class Transfer extends Transaction implements CalculateBill{
      * @param x : double parameter to set amount.
      */
     public void setAmount(double x){
-        if (amount <= 0){
-            System.out.println("Der Wert muss größer 0 sein! Wert wird auf 1 gesetzt.");
+        if (x <= 0){
+            System.out.println("Der Wert muss größer 0 sein! Wert wird auf 1 gesetzt." + "\n");
             this.amount = 1;
         }
         else {
@@ -98,14 +98,16 @@ public class Transfer extends Transaction implements CalculateBill{
 
     /**
      * Vergleicht 2 Objekte der Klasse Transfer miteinander.
-     * @param equal : Erwartet ein Parameter von der Klasse Transfer.
+     * @param other : Erwartet ein Parameter von der Klasse Transfer.
      * @return : Gibt einen Boolean zurück.
      */
-
-    public boolean equals(Transfer equal){
-        if(this == null || equal == null){
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof Transfer equals){
+            return (super.equals(equals) && this.sender == equals.sender && this.recipient == equals.recipient);
+        }
+        else{
             return false;
         }
-        return (super.equals(equal) && this.getAmount() == equal.getAmount() && this.getSender() == equal.getSender() && this.getRecipient() == equal.getRecipient());
     }
 }

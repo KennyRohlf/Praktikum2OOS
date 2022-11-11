@@ -108,15 +108,17 @@ public class Payment extends Transaction implements CalculateBill{
     }
 
     /**
-     * Überschreibt die equals der Superklasse.
-     * Vergleicht, ob 2 Objekte der Klasse Payment gleich sind oder nicht.
-     * @param equal : Übergebe ein Objekt der Klasse Payment.
-     * @return : Es wird ein Boolean zurückgegeben.
+     * check 2 objects of the same class if they are equal or not.
+     * @param other : Payment Class
+     * @return : get back an boolean if true or false
      */
-    public boolean equals(Payment equal){
-      if(this == null || equal == null){
-          return false;
-      }
-          return (super.equals(equal) && this.getAmount() == equal.getAmount() && this.getIncomingInterest() == equal.getIncomingInterest() && this.getOutGoingInterest() == equal.getOutGoingInterest());
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof Payment equals){
+            return (super.equals(equals) && this.incomingInterest == equals.incomingInterest && this.outGoingInterest == equals.outGoingInterest);
+        }
+        else{
+            return false;
+        }
     }
 }
