@@ -52,7 +52,10 @@ abstract class Transaction {
      * @return : Es wird ein boolean ausgegeben.
      */
 
-    boolean equals(Transaction equal){
+    public boolean equals(Transaction equal){
+        if(equal == null){
+            return false;
+        }
         return (this.getDate() == equal.getDate() && this.getDescription() == equal.getDescription());
     }
 }

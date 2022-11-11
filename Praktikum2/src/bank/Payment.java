@@ -113,7 +113,10 @@ public class Payment extends Transaction implements CalculateBill{
      * @param equal : Übergebe ein Objekt der Klasse Payment.
      * @return : Es wird ein Boolean zurückgegeben.
      */
-    boolean equals(Payment equal){
-      return (super.equals(equal) && this.getAmount() == equal.getAmount() && this.getIncomingInterest() == equal.getIncomingInterest() && this.getOutGoingInterest() == equal.getOutGoingInterest());
+    public boolean equals(Payment equal){
+      if(this == null || equal == null){
+          return false;
+      }
+          return (super.equals(equal) && this.getAmount() == equal.getAmount() && this.getIncomingInterest() == equal.getIncomingInterest() && this.getOutGoingInterest() == equal.getOutGoingInterest());
     }
 }

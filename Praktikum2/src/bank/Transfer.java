@@ -101,7 +101,11 @@ public class Transfer extends Transaction implements CalculateBill{
      * @param equal : Erwartet ein Parameter von der Klasse Transfer.
      * @return : Gibt einen Boolean zurück.
      */
-    boolean equals(Transfer equal){
+
+    public boolean equals(Transfer equal){
+        if(this == null || equal == null){
+            return false;
+        }
         return (super.equals(equal) && this.getAmount() == equal.getAmount() && this.getSender() == equal.getSender() && this.getRecipient() == equal.getRecipient());
     }
 }
