@@ -10,13 +10,14 @@ public class main {
     Payment payment3 = new Payment(payment2);
 
     Transfer transfer1 = new Transfer("4.8.2000",999, "Betrag sollte = 999€ sein", "Ich","Du");
-    Transfer transfer2 = new Transfer("4.8.2000",-100, "Betrag sollte = 1€ sein", "Ich","ich");
+    Transfer transfer2 = new Transfer("4.8.2000",-100, "Betrag sollte 0 sein.", "Ich","ich");
     Transfer transferCopy = new Transfer(transfer1);
 
     //Use to-String from class.
     System.out.print(payment1 + "\n");
     System.out.println(payment2 + "\n");
     System.out.print(transfer1 + "\n");
+    System.out.print(transfer2 + "\n");
 
     //Check the equals methodes.
     System.out.println(payment3.equals(payment2)); //True

@@ -1,6 +1,8 @@
 package bank;
 
-abstract class Transaction {
+import java.util.Objects;
+
+abstract class Transaction implements CalculateBill{
     /**
      * Private Attribute
      */
@@ -43,15 +45,10 @@ abstract class Transaction {
     @Override
     public String toString(){
         return "Date: " + this.getDate() + "\n" + "Description: "
-                + this.getDescription();
+                + this.getDescription() + "\n" + "Amount" + calculate();
     }
 
-    /**
-     * Vergleicht, ob 2 Objekte der Klasse Transaction gleich sind.
-     * @param other : Gebe ein Objekt der Klasse Transaction an.
-     * @return : Es wird ein boolean ausgegeben.
-     */
-
+/*
     @Override
     public boolean equals(Object other){
         if (other instanceof Transaction equals){
@@ -60,5 +57,15 @@ abstract class Transaction {
         else{
             return false;
         }
+    }
+
+ */
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return Double.compare(that.amount, amount) == 0 && Objects.equals(date, that.date) && Objects.equals(description, that.description);
     }
 }

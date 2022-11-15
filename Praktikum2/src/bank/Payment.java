@@ -1,6 +1,8 @@
 package bank;
 
-public class Payment extends Transaction implements CalculateBill{
+import java.util.Objects;
+
+public class Payment extends Transaction{
 
     /**
      * Die Attribute der Objekte.
@@ -68,7 +70,7 @@ public class Payment extends Transaction implements CalculateBill{
      * @param outGoingInterest1 : set outGoingInterst
      */
     public Payment(String date1, double amount1, String description1, double incomingInterest1, double outGoingInterest1){
-        super(date1,description1, amount1);
+        this(date1, amount1, description1);
         this.setIncomingInterest(incomingInterest1);
         this.setOutGoingInterest(outGoingInterest1);
     }
@@ -104,7 +106,7 @@ public class Payment extends Transaction implements CalculateBill{
     public String toString(){
         System.out.println(super.toString());
         return "IncomingInterest: " + this.getIncomingInterest() + "\n" + "OutGoingInterest: "
-                + this.getOutGoingInterest() + "\n" + "Betrag: " + this.calculate() + "\n";
+                + this.getOutGoingInterest() + "\n";
     }
 
     /**
@@ -112,6 +114,7 @@ public class Payment extends Transaction implements CalculateBill{
      * @param other : Payment Class
      * @return : get back an boolean if true or false
      */
+    /*
     @Override
     public boolean equals(Object other){
         if(other instanceof Payment equals){
@@ -120,5 +123,15 @@ public class Payment extends Transaction implements CalculateBill{
         else{
             return false;
         }
+    }
+    */
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Payment payment = (Payment) o;
+        return Double.compare(payment.incomingInterest, incomingInterest) == 0 && Double.compare(payment.outGoingInterest, outGoingInterest) == 0;
     }
 }

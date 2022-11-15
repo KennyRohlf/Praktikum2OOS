@@ -1,6 +1,8 @@
 package bank;
 
-public class Transfer extends Transaction implements CalculateBill{
+import java.util.Objects;
+
+public class Transfer extends Transaction{
 
     /**
      * Attribute
@@ -23,10 +25,10 @@ public class Transfer extends Transaction implements CalculateBill{
      * Set the attribute amount. It has to be 1 or higher.
      * @param x : double parameter to set amount.
      */
+
     public void setAmount(double x){
         if (x <= 0){
             System.out.println("Der Wert muss größer 0 sein! Wert wird auf 1 gesetzt." + "\n");
-            this.amount = 1;
         }
         else {
             this.amount = x;
@@ -66,7 +68,7 @@ public class Transfer extends Transaction implements CalculateBill{
      */
     public Transfer(String date1, double amount1, String description1, String sender1, String recipient1){
 
-        super(date1,description1,amount1);
+        this(date1, amount1, description1);
         this.setSender(sender1);
         this.setRecipient(recipient1);
     }
@@ -92,15 +94,10 @@ public class Transfer extends Transaction implements CalculateBill{
      */
     public String toString(){
         System.out.println(super.toString());
-        return "Sender: " + this.getSender() + "\n" + "Recipient: " + this.getRecipient() + "\n"
-                + "Betrag: " + this.calculate() + "\n";
+        return "Sender: " + this.getSender() + "\n" + "Recipient: " + this.getRecipient() + "\n";
     }
 
-    /**
-     * Vergleicht 2 Objekte der Klasse Transfer miteinander.
-     * @param other : Erwartet ein Parameter von der Klasse Transfer.
-     * @return : Gibt einen Boolean zurück.
-     */
+    /*
     @Override
     public boolean equals(Object other){
         if(other instanceof Transfer equals){
@@ -109,5 +106,16 @@ public class Transfer extends Transaction implements CalculateBill{
         else{
             return false;
         }
+    }
+
+     */
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Transfer transfer = (Transfer) o;
+        return Objects.equals(sender, transfer.sender) && Objects.equals(recipient, transfer.recipient);
     }
 }
