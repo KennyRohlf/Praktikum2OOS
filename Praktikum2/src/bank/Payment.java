@@ -109,22 +109,6 @@ public class Payment extends Transaction{
                 + this.getOutGoingInterest() + "\n";
     }
 
-    /**
-     * check 2 objects of the same class if they are equal or not.
-     * @param other : Payment Class
-     * @return : get back an boolean if true or false
-     */
-    /*
-    @Override
-    public boolean equals(Object other){
-        if(other instanceof Payment equals){
-            return (super.equals(equals) && this.incomingInterest == equals.incomingInterest && this.outGoingInterest == equals.outGoingInterest);
-        }
-        else{
-            return false;
-        }
-    }
-    */
 
     @Override
     public boolean equals(Object o) {

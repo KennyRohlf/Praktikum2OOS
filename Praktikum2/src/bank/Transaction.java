@@ -1,3 +1,4 @@
+
 package bank;
 
 import java.util.Objects;
@@ -6,9 +7,9 @@ abstract class Transaction implements CalculateBill{
     /**
      * Private Attribute
      */
-     protected String date;
-     protected String description;
-     protected double amount;
+    protected String date;
+    protected String description;
+    protected double amount;
 
     /**
      * Getter Methoden
@@ -33,11 +34,11 @@ abstract class Transaction implements CalculateBill{
      * @param date // wird in das Attribut date überführt des Objektes.
      * @param description // wird in das Attribut description überführt des Objektes.
      */
-     Transaction(String date, String description, double amount){
-         this.setDate(date);
-         this.setDescription(description);
-         this.setAmount(amount);
-     }
+    Transaction(String date, String description, double amount){
+        this.setDate(date);
+        this.setDescription(description);
+        this.setAmount(amount);
+    }
 
     /**
      * Überschreibe die toString Methode von der Superklasse, sodass das komplette Objekt ausgegeben wird.
