@@ -69,7 +69,7 @@ public interface Bank {
      * @param account the selected account
      * @return the current account balance
      */
-    double getAccountBalance(String account);
+    double getAccountBalance(String account) throws AccountDoesNotExistException;
 
     /**
      * Returns a list of transactions for an account.
@@ -98,4 +98,3 @@ public interface Bank {
      */
     List<Transaction> getTransactionsByType(String account, boolean positive);
 }
-

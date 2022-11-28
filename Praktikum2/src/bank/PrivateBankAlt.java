@@ -5,11 +5,11 @@ import bank.exceptions.*;
 import java.util.HashMap;
 import java.util.*;
 
-public class PrivateBank implements Bank {
+public class PrivateBankAlt implements Bank {
     private String name;
     private double incomingInterest;
     private double outGoingInterest;
-    Map<String, List<Transaction>> accountsToTransaction = new HashMap<>();
+    private Map<String, List<Transaction>> accountsToTransaction = new HashMap<>();
 
     public String getName() { return name;}
     public double getIncomingInterest() { return incomingInterest;}
@@ -35,12 +35,12 @@ public class PrivateBank implements Bank {
         }
     }
 
-    public PrivateBank(String name, double incomingInterest, double outGoingInterest){
+    PrivateBankAlt(String name, double incomingInterest, double outGoingInterest){
         this.setName(name);
         this.setIncomingInterest(incomingInterest);
         this.setOutGoingInterest(outGoingInterest);
     }
-    public PrivateBank(PrivateBank copy){
+    public PrivateBankAlt(PrivateBank copy){
         this(copy.getName(),copy.getIncomingInterest(),copy.getOutGoingInterest());
         this.accountsToTransaction = copy.accountsToTransaction;
     }
@@ -60,7 +60,7 @@ public class PrivateBank implements Bank {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PrivateBank that = (PrivateBank) o;
-        return Double.compare(that.incomingInterest, incomingInterest) == 0 && Double.compare(that.outGoingInterest, outGoingInterest) == 0 && Objects.equals(name, that.name) && Objects.equals(accountsToTransaction, that.accountsToTransaction);
+        return Double.compare(that.getIncomingInterest(), incomingInterest) == 0 && Double.compare(that.getOutGoingInterest(), outGoingInterest) == 0 && Objects.equals(name, that.getName()) && Objects.equals(accountsToTransaction, that.accountsToTransaction);
     }
 
     /**
@@ -121,7 +121,7 @@ public class PrivateBank implements Bank {
     public void addTransaction(String account, Transaction transaction) throws TransactionAlreadyExistException, AccountDoesNotExistException, TransactionAttributeException{
         if(!accountsToTransaction.containsKey(account)){
             throw new AccountDoesNotExistException("Account konnte nicht gefunden werden!" +  "\n");
-            }
+        }
         else if(accountsToTransaction.get(account).contains(transaction)){
             throw new TransactionAlreadyExistException("Die Transaktionen existiert bereits!" +  "\n");
         }
@@ -130,8 +130,8 @@ public class PrivateBank implements Bank {
         }
         else{
             if(transaction instanceof Payment payment){
-                payment.setIncomingInterest(PrivateBank.this.getIncomingInterest());
-                payment.setOutGoingInterest(PrivateBank.this.getOutGoingInterest());
+                payment.setIncomingInterest(PrivateBankAlt.this.getIncomingInterest());
+                payment.setOutGoingInterest(PrivateBankAlt.this.getOutGoingInterest());
                 accountsToTransaction.get(account).add(transaction);
 
             }
@@ -161,7 +161,7 @@ public class PrivateBank implements Bank {
         }
         else{
             accountsToTransaction.get(account).remove(transaction);
-            System.out.println("Dem Account " + account + " Wurde die Transaktion " + transaction.calculate() + "€ erfolgreich entfernt!");
+            System.out.println("Dem Account " + account + "Wurde die Transaktion " + transaction.getAmount() + "€ erfolgreich entfernt!");
         }
     }
 
@@ -185,15 +185,16 @@ public class PrivateBank implements Bank {
     public double getAccountBalance(String account) {
 
         double balance = 0;
-        if (accountsToTransaction.containsKey(account)) {
-            List<Transaction> list = accountsToTransaction.get(account);
-            for (Transaction transaction : list) {
+        List<Transaction> list = accountsToTransaction.get(account);
+
+        for (Transaction transaction : list) {
+            if (transaction instanceof Transfer transfer && transfer.getSender() == account) {
+                balance -= transaction.calculate();
+            } else {
                 balance += transaction.calculate();
             }
-            return balance;
-        } else {
-            return balance;
         }
+        return balance;
     }
     /**
      * Returns a list of transactions for an account.
@@ -233,8 +234,8 @@ public class PrivateBank implements Bank {
      * @return the list of all transactions by type
      */
     public List<Transaction> getTransactionsByType(String account, boolean positive){
-       List<Transaction> Liste = accountsToTransaction.get(account);
-       List<Transaction> newList = new ArrayList<>();
+        List<Transaction> Liste = accountsToTransaction.get(account);
+        List<Transaction> newList = new ArrayList<>();
 
         if(positive){
             for (Transaction transaction : Liste) {

@@ -46,7 +46,7 @@ abstract class Transaction implements CalculateBill{
     @Override
     public String toString(){
         return "Date: " + this.getDate() + "\n" + "Description: "
-                + this.getDescription() + "\n" + "Amount" + calculate();
+                + this.getDescription() + "\n" + "Amount : " + calculate()+ "€";
     }
 
 /*

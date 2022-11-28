@@ -1,38 +1,97 @@
+import bank.PrivateBank;
 import bank.Transfer;
 import bank.Payment;
+import bank.exceptions.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
-    //Generate Class Objects.
-    Payment payment1 = new Payment("2.8.2000", 1000, "Betrag sollte = 950€ sein", 0.05, 0.1);
-    Payment payment2 = new Payment("3.8.2000",-1000, "Betrag sollte = -1100€ sein", 0.05, 0.1);
-    Payment payment3 = new Payment(payment2);
+        PrivateBank Bank1 = new PrivateBank("Bank", 0.05, 0.05);
+        Transfer T1 = new Transfer("2.8.2000", 1000, "Geld1");
+        Transfer T2 = new Transfer("3.8.2000", 2000, "Geld2");
+        Transfer T3 = new Transfer("4.8.2000", 3000, "Geld3");
 
-    Transfer transfer1 = new Transfer("4.8.2000",999, "Betrag sollte = 999€ sein", "Ich","Du");
-    Transfer transfer2 = new Transfer("4.8.2000",-100, "Betrag sollte 0 sein.", "Ich","ich");
-    Transfer transferCopy = new Transfer(transfer1);
+        Payment P1 = new Payment("2.8.2000", 1000, "Geld1", 0.05, 0.05);
+        Payment P2 = new Payment("3.8.2000", 2000, "Geld2", 0.05, 0.05);
+        Payment P3 = new Payment("4.8.2000", 3000, "Geld3", 0.05, 0.05);
 
-    //Use to-String from class.
-    System.out.print(payment1 + "\n");
-    System.out.println(payment2 + "\n");
-    System.out.print(transfer1 + "\n");
-    System.out.print(transfer2 + "\n");
+        try {
+            Bank1.createAccount("Konto1");
+        } catch (AccountAlreadyExistsException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(Bank1 + "\n");
 
-    //Check the equals methodes.
-    System.out.println(payment3.equals(payment2)); //True
-    System.out.println(payment3.equals(payment1)); //False
+        try{
+            Bank1.addTransaction("Konto1",P1);
+        }
+        catch(TransactionAlreadyExistException e){
+            throw new RuntimeException(e);
+        }
+        catch(AccountDoesNotExistException e){
+            throw new RuntimeException(e);
+        }
+        catch(TransactionAttributeException e){
+            throw new RuntimeException(e);
+        }
+        try{
+            Bank1.addTransaction("Konto1",P2);
+        }
+        catch(TransactionAlreadyExistException e){
+            throw new RuntimeException(e);
+        }
+        catch(AccountDoesNotExistException e){
+            throw new RuntimeException(e);
+        }
+        catch(TransactionAttributeException e){
+            throw new RuntimeException(e);
+        }
 
-    System.out.println(transfer1.equals(transfer2)); //False
-    System.out.println(transfer1.equals(transferCopy)); //True
+        System.out.println(Bank1);
+        System.out.println("Konto1 Guthaben: " + Bank1.getAccountBalance("Konto1") + "€" + "\n" );
+
+        try{
+            Bank1.removeTransaction("Konto1",P1);
+        }
+        catch(AccountDoesNotExistException e){
+            throw new RuntimeException(e);
+        }
+        catch(TransactionDoesNotExistException e){
+            throw new RuntimeException(e);
+        }
+        System.out.println(Bank1 + "\n");
+
+        //Fehler!
+        System.out.println(Bank1.containsTransaction("Konto1", P1));
+        System.out.println(Bank1.containsTransaction("Konto1", P2));
+
+        System.out.println("Konto1 Guthaben: " + Bank1.getAccountBalance("Konto1") + "€");
+
+        System.out.println(Bank1.getTransactions("Konto1"));
+
+
+        PrivateBank Bank2 = new PrivateBank("Bank2",0.05,0.05);
+
+        try{
+            Bank2.createAccount("Konto2",List.of(
+                    new Payment("2.8.2000", 1000, "P1", 0.01, 0.01),
+                    new Payment("3.8.2000", 2000, "P2"),
+                    new Transfer("4.8.2000",3000,"T1")
+            ));
+        }
+        catch(AccountAlreadyExistsException e){
+            throw new RuntimeException(e);
+        }
+        catch(TransactionAlreadyExistException e){
+            throw new RuntimeException(e);
+        }
+        catch(TransactionAttributeException e){
+            throw new RuntimeException(e);
+        }
+
     }
 }
 
-/*
-
-    //Use Calculate methode from Class
-    System.out.println("Payment1: " + payment1.calculate());
-    System.out.println("Payment2: " + payment2.calculate());
-    System.out.println("Transfer1: " + transfer1.calculate() + "\n");
-
- */
