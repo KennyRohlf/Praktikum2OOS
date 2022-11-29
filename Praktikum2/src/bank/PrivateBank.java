@@ -173,7 +173,7 @@ public class PrivateBank implements Bank {
      */
     public boolean containsTransaction(String account, Transaction transaction){
 
-        return (accountsToTransaction.containsKey(account) && accountsToTransaction.containsValue(transaction));
+        return (accountsToTransaction.get(account).contains(transaction));
     }
 
     /**

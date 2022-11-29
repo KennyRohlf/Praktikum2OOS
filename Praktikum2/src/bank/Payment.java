@@ -113,7 +113,7 @@ public class Payment extends Transaction{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Payment payment = (Payment) o;
         return Double.compare(payment.incomingInterest, incomingInterest) == 0 && Double.compare(payment.outGoingInterest, outGoingInterest) == 0;
