@@ -35,7 +35,7 @@ public class PrivateBankAlt implements Bank {
         }
     }
 
-    PrivateBankAlt(String name, double incomingInterest, double outGoingInterest){
+    public PrivateBankAlt(String name, double incomingInterest, double outGoingInterest){
         this.setName(name);
         this.setIncomingInterest(incomingInterest);
         this.setOutGoingInterest(outGoingInterest);
@@ -135,9 +135,14 @@ public class PrivateBankAlt implements Bank {
                 accountsToTransaction.get(account).add(transaction);
 
             }
-            else{
-                accountsToTransaction.get(account).add(transaction);
-                System.out.println("Die Transaktion " + transaction.getAmount() + " wurde dem Account " + account + " angefügt!" +  "\n");
+            else if(transaction instanceof Transfer transfer){
+                if(transfer.getSender() == this.getName()){
+                    transfer.setAmount(-(transfer.getAmount()));
+                    accountsToTransaction.get(account).add(transfer);
+                }
+                else{
+                    accountsToTransaction.get(account).add(transfer);
+                }
             }
         }
     }

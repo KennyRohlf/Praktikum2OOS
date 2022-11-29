@@ -137,7 +137,6 @@ public class PrivateBank implements Bank {
             }
             else{
                 accountsToTransaction.get(account).add(transaction);
-                System.out.println("Die Transaktion " + transaction.getAmount() + " wurde dem Account " + account + " angefügt!" +  "\n");
             }
         }
     }

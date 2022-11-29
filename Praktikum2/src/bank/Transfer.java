@@ -1,5 +1,7 @@
 package bank;
 
+import bank.exceptions.AttributeException;
+
 import java.util.Objects;
 
 public class Transfer extends Transaction{
@@ -52,7 +54,7 @@ public class Transfer extends Transaction{
      * @param description1 : set the description.
      * Other 2 parameter are set "Anonym"
      */
-    public Transfer(String date1, double amount1, String description1){
+    public Transfer(String date1, double amount1, String description1) throws AttributeException {
         super(date1,description1, amount1);
         this.setSender("Anonym");
         this.setSender("Anonym");
@@ -66,7 +68,7 @@ public class Transfer extends Transaction{
      * @param sender1 : set Sender
      * @param recipient1 : set recipient
      */
-    public Transfer(String date1, double amount1, String description1, String sender1, String recipient1){
+    public Transfer(String date1, double amount1, String description1, String sender1, String recipient1) throws AttributeException{
 
         this(date1, amount1, description1);
         this.setSender(sender1);
@@ -76,7 +78,7 @@ public class Transfer extends Transaction{
     /**
      * Copy-Konstruktor zur Kopierung Objekte der Klasse Transfer
      */
-    public Transfer(Transfer copy){
+    public Transfer(Transfer copy) throws AttributeException {
     this(copy.getDate(),copy.getAmount(),copy.getDescription(),copy.getSender(),copy.getRecipient());
     }
 
@@ -89,26 +91,18 @@ public class Transfer extends Transaction{
         return this.getAmount();
     }
 
+
     /**
      * Die toString Methode wird überschrieben und es gibt alle Attribute des Objektes Transfer zurück.
      */
+
     public String toString(){
         System.out.println(super.toString());
         return "Sender: " + this.getSender() + "\n" + "Recipient: " + this.getRecipient() + "\n";
     }
 
-    /*
-    @Override
-    public boolean equals(Object other){
-        if(other instanceof Transfer equals){
-            return (super.equals(equals) && this.sender == equals.sender && this.recipient == equals.recipient);
-        }
-        else{
-            return false;
-        }
-    }
 
-     */
+
 
     @Override
     public boolean equals(Object o) {

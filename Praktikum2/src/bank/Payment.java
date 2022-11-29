@@ -1,6 +1,7 @@
 package bank;
 
 import java.util.Objects;
+import bank.exceptions.*;
 
 public class Payment extends Transaction{
 
@@ -55,7 +56,7 @@ public class Payment extends Transaction{
      * @param description1 : Set description
      * Other parameter are set 0.
      */
-    public Payment(String date1, double amount1, String description1){
+    public Payment(String date1, double amount1, String description1) throws AttributeException{
         super(date1,description1,amount1);
         this.setIncomingInterest(0);
         this.setOutGoingInterest(0);
@@ -69,7 +70,7 @@ public class Payment extends Transaction{
      * @param incomingInterest1 : set incomingInterest
      * @param outGoingInterest1 : set outGoingInterst
      */
-    public Payment(String date1, double amount1, String description1, double incomingInterest1, double outGoingInterest1){
+    public Payment(String date1, double amount1, String description1, double incomingInterest1, double outGoingInterest1) throws AttributeException{
         this(date1, amount1, description1);
         this.setIncomingInterest(incomingInterest1);
         this.setOutGoingInterest(outGoingInterest1);
@@ -78,7 +79,7 @@ public class Payment extends Transaction{
     /**
      * Copy Konstruktor um ein Objekt der Klasse Payment zu kopieren.
      */
-    public Payment(Payment copy){
+    public Payment(Payment copy) throws AttributeException{
        this(copy.getDate(),copy.getAmount(),copy.getDescription(),copy.getIncomingInterest(),copy.getOutGoingInterest());
     }
 
@@ -103,11 +104,13 @@ public class Payment extends Transaction{
      * Überschreibe die toString Methode der Superklasse.
      * Hier werden die Attribute vom Objekt Payment ausgegeben.
      */
+
     public String toString(){
         System.out.println(super.toString());
         return "IncomingInterest: " + this.getIncomingInterest() + "\n" + "OutGoingInterest: "
                 + this.getOutGoingInterest() + "\n";
     }
+
 
 
     @Override
