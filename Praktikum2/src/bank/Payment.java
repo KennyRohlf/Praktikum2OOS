@@ -26,26 +26,24 @@ public class Payment extends Transaction{
      * Set the Attribute IncomingInterest.
      * @param x : double Parameter has to be between 0 and 1.
      */
-    public void setIncomingInterest(double x){
+    public void setIncomingInterest(double x) throws AttributeException{
     if(x >= 0 && x <= 1){
             incomingInterest = x;
         }
             else{
-            System.out.println("Fehler: Es muss ein Wert zwischen 0 - 1 getroffen werden! Wert auf 0 gesetzt");
-            this.setIncomingInterest(0);
+        throw new AttributeException("OutGoingInterest nicht zwischen 0 und 1!");
         }
     }
     /**
      * Set the Attribute OutGoingInterst.
      * @param x : double Parameter has to be between 0 and 1.
      */
-    public void setOutGoingInterest(double x){
+    public void setOutGoingInterest(double x) throws AttributeException{
         if(x >= 0 && x <= 1){
             outGoingInterest = x;
         }
         else{
-            System.out.println("Fehler: Es muss ein Wert zwischen 0 - 1 getroffen werden! Wert wurde auf 0 gesetzt");
-            this.setOutGoingInterest(0);
+            throw new AttributeException("OutGoingInterest nicht zwischen 0 und 1!");
         }
     }
 
@@ -60,6 +58,10 @@ public class Payment extends Transaction{
         super(date1,description1,amount1);
         this.setIncomingInterest(0);
         this.setOutGoingInterest(0);
+
+        if(amount1 == 0){
+            throw new AttributeException("Amount darf nicht 0 sein!");
+        }
     }
 
     /**
@@ -70,12 +72,18 @@ public class Payment extends Transaction{
      * @param incomingInterest1 : set incomingInterest
      * @param outGoingInterest1 : set outGoingInterst
      */
-    public Payment(String date1, double amount1, String description1, double incomingInterest1, double outGoingInterest1) throws AttributeException{
+    public Payment(String date1, double amount1, String description1, double incomingInterest1, double outGoingInterest1) throws AttributeException {
         this(date1, amount1, description1);
         this.setIncomingInterest(incomingInterest1);
         this.setOutGoingInterest(outGoingInterest1);
-    }
 
+        if (amount1 == 0) {
+            throw new AttributeException("Amount darf nicht 0 sein!");
+        }
+        else if(!(incomingInterest1 >= 0 && incomingInterest1 <= 1) || !(outGoingInterest1 >= 0 && outGoingInterest1 <= 1)){
+            throw new AttributeException("outGoingInterest/inComingInterest Fehler!");
+        }
+    }
     /**
      * Copy Konstruktor um ein Objekt der Klasse Payment zu kopieren.
      */

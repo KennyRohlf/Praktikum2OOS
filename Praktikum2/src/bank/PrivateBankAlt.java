@@ -130,10 +130,14 @@ public class PrivateBankAlt implements Bank {
         }
         else{
             if(transaction instanceof Payment payment){
-                payment.setIncomingInterest(PrivateBankAlt.this.getIncomingInterest());
-                payment.setOutGoingInterest(PrivateBankAlt.this.getOutGoingInterest());
-                accountsToTransaction.get(account).add(transaction);
-
+                try{
+                    payment.setIncomingInterest(PrivateBankAlt.this.getIncomingInterest());
+                    payment.setOutGoingInterest(PrivateBankAlt.this.getOutGoingInterest());
+                    accountsToTransaction.get(account).add(transaction);
+                }
+                catch(AttributeException e){
+                    throw new RuntimeException(e);
+                }
             }
             else if(transaction instanceof Transfer transfer){
                 if(transfer.getSender() == this.getName()){
@@ -193,7 +197,7 @@ public class PrivateBankAlt implements Bank {
         List<Transaction> list = accountsToTransaction.get(account);
 
         for (Transaction transaction : list) {
-            if (transaction instanceof Transfer transfer && transfer.getSender() == account) {
+            if (transaction instanceof Transfer transfer && transfer.getSender().equals(account)) {
                 balance -= transaction.calculate();
             } else {
                 balance += transaction.calculate();

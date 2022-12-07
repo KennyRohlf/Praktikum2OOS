@@ -19,6 +19,51 @@ public class main {
             IncomingTransfer T1 = new IncomingTransfer("2.8.2000" , 2500,"Geld7","Konto1","konto2");
             OutgoingTransfer T2 = new OutgoingTransfer("2.8.2000" , 2500,"Geld8","Konto2","konto1");
 
+            PrivateBankAlt Bank2 = new PrivateBankAlt("Bank", 0.00, 0.00);
+            try {
+                Bank2.createAccount("Konto1");
+            } catch (AccountAlreadyExistsException e) {
+                throw new RuntimeException(e);
+            }
+
+            try{
+                Bank2.addTransaction("Konto1",P1);
+            }
+            catch(TransactionAlreadyExistException e){
+                throw new RuntimeException(e);
+            }
+            catch(AccountDoesNotExistException e){
+                throw new RuntimeException(e);
+            }
+            catch(TransactionAttributeException e){
+                throw new RuntimeException(e);
+            }
+            try{
+                Bank2.addTransaction("Konto1",P2);
+            }
+            catch(TransactionAlreadyExistException e){
+                throw new RuntimeException(e);
+            }
+            catch(AccountDoesNotExistException e){
+                throw new RuntimeException(e);
+            }
+            catch(TransactionAttributeException e){
+                throw new RuntimeException(e);
+            }
+            try{
+                Bank2.addTransaction("Konto1",P3);
+            }
+            catch(TransactionAlreadyExistException e){
+                throw new RuntimeException(e);
+            }
+            catch(AccountDoesNotExistException e){
+                throw new RuntimeException(e);
+            }
+            catch(TransactionAttributeException e){
+                throw new RuntimeException(e);
+            }
+            //
+            System.out.println(Bank2.getAccountBalance("Konto1"));
 
             try {
                 Bank1.createAccount("Konto1");
@@ -52,9 +97,22 @@ public class main {
                 throw new RuntimeException(e);
             }
 
-            System.out.println(Bank1);
-            System.out.println("Konto1 Guthaben: " + Bank1.getAccountBalance("Konto1") + "€" + "\n" );
+            try{
+                Bank1.addTransaction("Konto1",P3);
+            }
+            catch(TransactionAlreadyExistException e){
+                throw new RuntimeException(e);
+            }
+            catch(AccountDoesNotExistException e){
+                throw new RuntimeException(e);
+            }
+            catch(TransactionAttributeException e){
+                throw new RuntimeException(e);
+            }
 
+            //System.out.println(Bank1);
+            System.out.println("Konto1 Guthaben: " + Bank1.getAccountBalance("Konto1") + "€" + "\n" );
+            /*
             try{
                 Bank1.removeTransaction("Konto1",P1);
             }
@@ -161,7 +219,7 @@ public class main {
 
 
             PrivateBankAlt Bank2 = new PrivateBankAlt("Bank2",0.01,0.01);
-
+            */
         }
         catch(AttributeException e){
             throw new RuntimeException(e);

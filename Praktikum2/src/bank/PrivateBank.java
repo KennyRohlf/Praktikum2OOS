@@ -130,9 +130,14 @@ public class PrivateBank implements Bank {
         }
         else{
             if(transaction instanceof Payment payment){
-                payment.setIncomingInterest(PrivateBank.this.getIncomingInterest());
-                payment.setOutGoingInterest(PrivateBank.this.getOutGoingInterest());
-                accountsToTransaction.get(account).add(transaction);
+                try{
+                    payment.setIncomingInterest(PrivateBank.this.getIncomingInterest());
+                    payment.setOutGoingInterest(PrivateBank.this.getOutGoingInterest());
+                    accountsToTransaction.get(account).add(transaction);
+                }
+                catch(AttributeException e){
+                    throw new RuntimeException(e);
+                }
 
             }
             else{

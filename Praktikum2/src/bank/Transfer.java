@@ -58,6 +58,10 @@ public class Transfer extends Transaction{
         super(date1,description1, amount1);
         this.setSender("Anonym");
         this.setSender("Anonym");
+
+        if(amount1 == 0){
+            throw new AttributeException("Amount darf nicht 0 sein!");
+        }
     }
 
     /**
@@ -73,6 +77,10 @@ public class Transfer extends Transaction{
         this(date1, amount1, description1);
         this.setSender(sender1);
         this.setRecipient(recipient1);
+
+        if(amount1 == 0){
+            throw new AttributeException("Amount darf nicht 0 sein!");
+        }
     }
 
     /**
